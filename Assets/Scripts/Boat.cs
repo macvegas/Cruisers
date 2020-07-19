@@ -17,8 +17,10 @@ public class Boat : MonoBehaviour
 
     void Start()
     {
-        //selectedWeapon = weapons[0];
-        selectedAbility = abilities[0];
+        if (abilities.Count != 0)
+        {
+            selectedAbility = abilities[0];
+        }
     }
 
     void Update()

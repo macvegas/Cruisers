@@ -6,10 +6,10 @@ public class FastFoward : Ability
 {
     public float executionTime = 0.35f;
     public float pushMultiplicator = 15f;
-    public GameObject target;
+    GameObject target;
     public override void Cast()
     {
-        //target = gameObject;
+        target = gameObject;
 
         //  SUPPOSED to get list of visible boats and pushes it forward
         //target.transform.Translate(target.transform.forward * pushMultiplicator);
