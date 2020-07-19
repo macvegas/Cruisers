@@ -1,4 +1,4 @@
-﻿using System.Collections;
+﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -10,16 +10,22 @@ public class Boat : MonoBehaviour
     public float RotationSpeed;
     public float Size;
     public Ability[] abilities;
-    public Weapon[] weapons;
+    public List<Weapon> weapons = new List<Weapon>();
 
     private CharacterController controller;
     private Weapon selectedWeapon;
 
+    public event EventHandler<OnShootEventArgs> OnShoot;
+
+    public class OnShootEventArgs : EventArgs
+    {
+        public Vector3 canonPosition;
+        public Vector3 shootPosition;
+    }
+
     void Start()
     {
         controller = gameObject.AddComponent<CharacterController>();
-        //selectedWeapon = weapons[0];
-
     }
 
     void Update()
@@ -29,6 +35,10 @@ public class Boat : MonoBehaviour
         if (move != Vector3.zero )
         {
             Move(move);
+        }
+        if (Input.GetMouseButtonDown(0))
+        {
+            OnShoot?.Invoke(this, new OnShootEventArgs { canonPosition = gameObject.transform.position + new Vector3(0, 0, 1f), shootPosition = Input.mousePosition});
         }
     }
 
