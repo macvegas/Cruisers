@@ -18,7 +18,7 @@ public class Boat : MonoBehaviour
     void Start()
     {
         controller = gameObject.AddComponent<CharacterController>();
-        selectedWeapon = weapons[0];
+        //selectedWeapon = weapons[0];
 
     }
 
