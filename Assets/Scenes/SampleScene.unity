@@ -402,6 +402,7 @@ GameObject:
   - component: {fileID: 1566236530}
   - component: {fileID: 1566236529}
   - component: {fileID: 1566236528}
+  - component: {fileID: 1566236533}
   m_Layer: 0
   m_Name: Cube (1)
   m_TagString: Untagged
@@ -422,10 +423,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Health: 0
-  Speed: 0
+  Speed: 1
   RotationSpeed: 0
   Size: 0
-  abilities: []
+  abilities:
+  - {fileID: 1566236533}
   weapons: []
 --- !u!65 &1566236529
 BoxCollider:
@@ -501,3 +503,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1566236533
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1566236527}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fff546dc171871341afe756a5f5eecdb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damage: 0
+  cooldown: 0
+  executionTime: 0.35
+  pushMultiplicator: 15

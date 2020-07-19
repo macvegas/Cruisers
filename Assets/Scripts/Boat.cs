@@ -9,17 +9,19 @@ public class Boat : MonoBehaviour
     public float Speed;
     public float RotationSpeed;
     public float Size;
-    public Ability[] abilities;
+    public List<Ability> abilities;
     public Weapon[] weapons;
 
     private CharacterController controller;
     private Weapon selectedWeapon;
+    private Ability selectedAbility;
 
     void Start()
     {
         controller = gameObject.AddComponent<CharacterController>();
-        selectedWeapon = weapons[0];
-
+        //selectedWeapon = weapons[0];
+        selectedAbility = abilities[0];
+        
     }
 
     void Update()
@@ -29,6 +31,12 @@ public class Boat : MonoBehaviour
         if (move != Vector3.zero )
         {
             Move(move);
+        }
+
+        //handle ability cast
+        if (Input.GetKeyDown("space"))
+        {
+            selectedAbility.Cast();
         }
     }
 
