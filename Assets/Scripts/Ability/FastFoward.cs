@@ -6,24 +6,28 @@ public class FastFoward : Ability
 {
     public float executionTime = 0.35f;
     public float pushMultiplicator = 15f;
-    GameObject target;
+    public GameObject target;
     public override void Cast()
     {
-        target = gameObject;
+        //target = gameObject;
 
         //  SUPPOSED to get list of visible boats and pushes it forward
         //target.transform.Translate(target.transform.forward * pushMultiplicator);
-        StartCoroutine(pushForward());
+        if (canCast)
+        {
+            StartCoroutine(PushForward(target.transform.forward));
+            StartCoroutine(CooldownTimer());
+        }
+        
     }
 
-    private IEnumerator pushForward()
+    private IEnumerator PushForward(Vector3 direction)
     {
-        Vector3 direction = target.transform.forward;
         float time = 0f;
         while (time<executionTime)
         {
             time += Time.deltaTime;
-            target.GetComponent<CharacterController>().Move(direction * Time.deltaTime * pushMultiplicator);
+            target.transform.position += direction * Time.deltaTime * pushMultiplicator;
             yield return null;
         }
         
