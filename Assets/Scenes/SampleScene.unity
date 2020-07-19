@@ -422,8 +422,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Health: 0
-  Speed: 0
-  RotationSpeed: 0
+  Speed: 1
+  RotationSpeed: 50
   Size: 0
   abilities: []
   weapons: []
