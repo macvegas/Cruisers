@@ -424,7 +424,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Health: 0
   Speed: 1
-  RotationSpeed: 0
+  RotationSpeed: 50
   Size: 0
   abilities:
   - {fileID: 1566236533}
