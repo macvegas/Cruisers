@@ -5,7 +5,7 @@ public abstract class Weapon : MonoBehaviour
 {
     public float damage;
     public float coolDownTime;
-    public bool canShoot;
+    public bool canShoot = true;
     public float projectileSpeed;
     public float projectileCount;
     public float projectileAngle;
@@ -19,20 +19,10 @@ public abstract class Weapon : MonoBehaviour
         Back = 3
     }
 
-    protected abstract void Shoot();
-
-    public void TryShoot()
-    { 
-        if(canShoot)
-        {
-            Shoot();
-            StartCoroutine(StartCoolDown());
-        }
-    }
-
-    private IEnumerator StartCoolDown()
+    public IEnumerator StartCoolDown()
     {
         canShoot = false;
+        Debug.Log("started coroutine");
 
         float time = 0f;
 
@@ -48,7 +38,7 @@ public abstract class Weapon : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
+     
     }
 
     // Update is called once per frame

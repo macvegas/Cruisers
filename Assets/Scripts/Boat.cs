@@ -22,6 +22,7 @@ public class Boat : MonoBehaviour
 
     public class OnShootEventArgs : EventArgs
     {
+        public Weapon firingWeapon;
         public Vector3 canonPosition;
         public Vector3 shootDirection;
         public Vector3 projectileVelocity;
@@ -52,6 +53,7 @@ public class Boat : MonoBehaviour
         if (Input.GetMouseButtonDown(0))
         {
             OnShoot?.Invoke(this, new OnShootEventArgs { 
+                firingWeapon = selectedWeapon,
                 canonPosition = gameObject.transform.position + gameObject.transform.forward*10,
                 shootDirection = gameObject.transform.position + getShootDir() + gameObject.transform.up * selectedWeapon.projectileAngle, 
                 projectileVelocity = getShootDir() * selectedWeapon.projectileSpeed});
