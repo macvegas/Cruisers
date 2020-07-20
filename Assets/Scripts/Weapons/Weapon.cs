@@ -1,5 +1,4 @@
 ﻿using System.Collections;
-using System.Diagnostics;
 using UnityEngine;
 
 public abstract class Weapon : MonoBehaviour
@@ -9,7 +8,16 @@ public abstract class Weapon : MonoBehaviour
     public bool canShoot;
     public float projectileSpeed;
     public float projectileCount;
-    public Vector3 direction;
+    public float projectileAngle;
+    public WeaponDirEnum direction;
+
+    public enum WeaponDirEnum : ushort
+    {
+        Forward = 0,
+        Left = 1,
+        Right = 2,
+        Back = 3
+    }
 
     protected abstract void Shoot();
 
@@ -40,7 +48,7 @@ public abstract class Weapon : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame

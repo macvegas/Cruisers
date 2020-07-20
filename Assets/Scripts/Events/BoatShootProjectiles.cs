@@ -14,11 +14,11 @@ public class BoatShootProjectiles : MonoBehaviour
     {
         Debug.Log("Shots fired!");
         //Shoot
-        GameObject projectileTransform = Instantiate(pfCanonBall, e.canonPosition, Quaternion.identity);
+        GameObject projectile = Instantiate(pfCanonBall, e.canonPosition, Quaternion.identity);
 
-        Vector3 shootDir = (e.shootPosition - e.canonPosition).normalized;
-        Debug.Log("Shoot Direction: x=" + shootDir.x + "y=" + shootDir.y + "z=" + shootDir.z);
-        Debug.Log("mouse position: x=" + e.shootPosition.normalized.x + "y=" + e.shootPosition.normalized.y + "z=" + e.shootPosition.z);
-        projectileTransform.GetComponent<CanonBall>().Setup(shootDir);
+        Vector3 shootDir = e.shootDirection;
+        Debug.Log("shootposition: x=" + e.shootDirection.x + " y=" + e.shootDirection.y);
+        projectile.GetComponent<CanonBall>().Setup(shootDir);
+        projectile.GetComponent<Rigidbody>().velocity = e.projectileVelocity;
     }
 }
