@@ -5,7 +5,13 @@ using UnityEngine;
 public class CanonBall : MonoBehaviour
 {
     public float speed = 10f;
+    public float lifeTime = 2f;
     private Vector3 shootDir;
+
+    private void Awake()
+    {
+        Destroy(gameObject, lifeTime);
+    }
 
     public void Setup(Vector3 shootDir)
     {
