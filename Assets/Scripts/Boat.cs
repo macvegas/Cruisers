@@ -6,14 +6,14 @@ public class Boat : MonoBehaviour
 {
     
     public float Health;
-    public float Speed;
-    public float RotationSpeed;
+    public float Speed=1;
+    public float RotationSpeed=1;
     public float Size;
-    public Ability[] abilities;
+    public List<Ability> abilities;
     public List<Weapon> weapons = new List<Weapon>();
 
-    private CharacterController controller;
     private Weapon selectedWeapon;
+    private Ability selectedAbility;
 
     public event EventHandler<OnShootEventArgs> OnShoot;
 
@@ -25,25 +25,38 @@ public class Boat : MonoBehaviour
 
     void Start()
     {
-        controller = gameObject.AddComponent<CharacterController>();
+        if (abilities.Count != 0)
+        {
+            selectedAbility = abilities[0];
+        }
     }
 
     void Update()
     {
         //handle movement
-        Vector3 move = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
-        if (move != Vector3.zero )
+        float x = Input.GetAxis("Horizontal");
+        float y = Input.GetAxis("Vertical");
+        
+        if (x!=0 || y!=0 )
         {
-            Move(move);
+            Move(x,y);
         }
         if (Input.GetMouseButtonDown(0))
         {
             OnShoot?.Invoke(this, new OnShootEventArgs { canonPosition = gameObject.transform.position + new Vector3(0, 0, 1f), shootPosition = Input.mousePosition});
         }
+
+        //handle ability cast
+        if (Input.GetKeyDown("space"))
+        {
+            selectedAbility.Cast();
+        }
     }
 
-    private void Move(Vector3 movement)
+    private void Move(float horizontal, float vertical)
     {
-        controller.Move(movement * Time.deltaTime * Speed);
+        Vector3 move = new Vector3(0, 0, vertical);
+        gameObject.transform.Translate(0, 0, vertical*Speed*Time.deltaTime);
+        gameObject.transform.Rotate(0, horizontal * RotationSpeed * Time.deltaTime, 0);
     }
 }
