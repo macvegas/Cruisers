@@ -6,10 +6,10 @@ using UnityEngine;
 public class Boat : MonoBehaviour
 {
     
-    public float Health;
+    public float Health=100;
     public float Speed=1;
     public float RotationSpeed=1;
-    public float Size;
+    public float Size=1;
     public List<Ability> abilities;
     public List<Weapon> weapons = new List<Weapon>();
 
