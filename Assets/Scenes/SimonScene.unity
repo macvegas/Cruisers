@@ -365,25 +365,6 @@ MonoBehaviour:
   cooldown: 0
   executionTime: 0.35
   pushMultiplicator: 15
---- !u!114 &223504947
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 223504945}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fc4d95a13e8d8e54d876a9b1f3b7f64f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Health: 0
-  Speed: 5
-  RotationSpeed: 80
-  Size: 0
-  abilities:
-  - {fileID: 223504946}
-  weapons: []
 --- !u!54 &223504949
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -783,5 +764,15 @@ PrefabInstance:
       propertyPath: m_Name
       value: Boat
       objectReference: {fileID: 0}
+    - target: {fileID: 7459279817721545663, guid: b9336cb65a387a24baf82f297e22aaa4,
+        type: 3}
+      propertyPath: abilities.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7459279817721545663, guid: b9336cb65a387a24baf82f297e22aaa4,
+        type: 3}
+      propertyPath: abilities.Array.data[0]
+      value: 
+      objectReference: {fileID: 223504946}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b9336cb65a387a24baf82f297e22aaa4, type: 3}
