@@ -5,11 +5,19 @@ using UnityEngine;
 
 public class Boat : MonoBehaviour
 {
-    
-    public float Health=100;
+    /******************************************************************
+     * TEMPORARY VALUES FOR TESTS --> TO GIVE TO ACTUAL BOATS AFTER
+     ******************************************************************/
+    private float currentHealth;
     public float Speed=1;
     public float RotationSpeed=1;
     public float Size=1;
+
+    /*******************************************************************
+     *******************************************************************
+     *******************************************************************/
+    public HealthBar healthBar;
+    private float maxHealth = 100;
     public List<Ability> abilities;
     public List<Weapon> weapons = new List<Weapon>();
 
@@ -18,7 +26,33 @@ public class Boat : MonoBehaviour
 
     public event EventHandler<OnShootEventArgs> OnShoot;
 
-    private Camera cam;
+    public Camera CameraPlayer;
+
+    public float MaxHealth
+    {
+        get => maxHealth;
+        set{
+            if (maxHealth == value)
+            {
+                return;
+            }
+            maxHealth = value;
+            healthBar.SetMaxHealth(value);
+        }
+    }
+
+    public float CurrentHealth { get => currentHealth;
+        set
+        {
+            if (currentHealth == value || value <  0)
+            {
+                return;
+            }
+            currentHealth = value;
+            healthBar.SetCurrentHealth(value);
+            Debug.Log("hello");
+        }
+    }
 
     public class OnShootEventArgs : EventArgs
     {
@@ -29,6 +63,10 @@ public class Boat : MonoBehaviour
 
     void Start()
     {
+        //
+        MaxHealth = 100;
+        //
+        CurrentHealth = MaxHealth;
         if (abilities.Count != 0)
         {
             selectedAbility = abilities[0];
@@ -62,7 +100,26 @@ public class Boat : MonoBehaviour
         {
             selectedAbility.Cast();
         }
+
+        if (Input.GetKeyDown("f"))
+        {
+            TakeDamage(10);
+        }
     }
+
+    private void LateUpdate()
+    {
+        if (MaxHealth != healthBar.slider.maxValue)
+        {
+            healthBar.SetMaxHealth(MaxHealth);
+        }
+        if (CurrentHealth != healthBar.slider.value)
+        {
+            healthBar.SetCurrentHealth(CurrentHealth);
+        }
+    }
+
+
 
     private void Move(float horizontal, float vertical)
     {
@@ -95,5 +152,10 @@ public class Boat : MonoBehaviour
                 break;
         }
         return shootDir;
+    }
+
+    public void TakeDamage(float damage)
+    {
+        CurrentHealth -= damage;
     }
 }
