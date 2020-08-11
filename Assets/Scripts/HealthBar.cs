@@ -22,7 +22,6 @@ public class HealthBar : MonoBehaviour
 
     public void UpdateCount()
     {
-        Debug.Log("hola");
         count.text = slider.value + " / " + slider.maxValue;
     }
 

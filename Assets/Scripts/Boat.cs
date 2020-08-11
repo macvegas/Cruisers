@@ -21,8 +21,11 @@ public class Boat : MonoBehaviour
     public List<Ability> abilities;
     public List<Weapon> weapons = new List<Weapon>();
 
+    //
+    public WeaponSystem sideCanons;
+    //
     private Weapon selectedWeapon;
-    private Ability selectedAbility;
+    protected Ability selectedAbility;
 
     public event EventHandler<OnShootEventArgs> OnShoot;
 
@@ -41,6 +44,19 @@ public class Boat : MonoBehaviour
         }
     }
 
+    public List<Transform> GetShootingPoints(WeaponOrientation shootingDirection)
+    {
+        List<Transform> shootingPointsList = new List<Transform>();
+        foreach (ShootingPoint point in GetComponentsInChildren<ShootingPoint>())
+        {
+            if (point.orientation == shootingDirection)
+            {
+                shootingPointsList.Add(point.gameObject.transform);
+            }
+        }
+        return shootingPointsList;
+    }
+
     public float CurrentHealth { get => currentHealth;
         set
         {
@@ -50,7 +66,6 @@ public class Boat : MonoBehaviour
             }
             currentHealth = value;
             healthBar.SetCurrentHealth(value);
-            Debug.Log("hello");
         }
     }
 
@@ -61,12 +76,12 @@ public class Boat : MonoBehaviour
         public Vector3 projectileVelocity;
     }
 
-    void Start()
+    protected virtual void Start()
     {
         //
-        MaxHealth = 100;
+        //MaxHealth = 100;
         //
-        CurrentHealth = MaxHealth;
+        //CurrentHealth = MaxHealth;
         if (abilities.Count != 0)
         {
             selectedAbility = abilities[0];
@@ -79,49 +94,53 @@ public class Boat : MonoBehaviour
 
     void Update()
     {
-        //handle movement
-        float x = Input.GetAxis("Horizontal");
-        float y = Input.GetAxis("Vertical");
+        ////handle movement
+        //float x = Input.GetAxis("Horizontal");
+        //float y = Input.GetAxis("Vertical");
         
-        if (x!=0 || y!=0 )
-        {
-            Move(x,y);
-        }
-        if (Input.GetMouseButtonDown(0))
-        {
-            OnShoot?.Invoke(this, new OnShootEventArgs { 
-                canonPosition = gameObject.transform.position + gameObject.transform.forward*10,
-                shootDirection = gameObject.transform.position + getShootDir() + gameObject.transform.up * selectedWeapon.projectileAngle, 
-                projectileVelocity = getShootDir() * selectedWeapon.projectileSpeed});
-        }
+        //if (x!=0 || y!=0 )
+        //{
+        //    Move(x,y);
+        //}
+        //if (Input.GetMouseButtonDown(0))
+        //{
+        //    OnShoot?.Invoke(this, new OnShootEventArgs { 
+        //        canonPosition = gameObject.transform.position + gameObject.transform.forward*10,
+        //        shootDirection = gameObject.transform.position + getShootDir() + gameObject.transform.up * selectedWeapon.projectileAngle, 
+        //        projectileVelocity = getShootDir() * selectedWeapon.projectileSpeed});
+        //}
 
-        //handle ability cast
-        if (Input.GetKeyDown("space"))
-        {
-            selectedAbility.Cast();
-        }
+        ////handle ability cast
+        //if (Input.GetKeyDown("space"))
+        //{
+        //    selectedAbility.Cast();
+        //}
 
-        if (Input.GetKeyDown("f"))
-        {
-            TakeDamage(10);
-        }
+        //if (Input.GetKeyDown("f"))
+        //{
+        //    TakeDamage(10);
+        //}
+        //if (Input.GetKeyDown("r"))
+        //{
+        //    sideCanons.Shoot();
+        //}
     }
 
     private void LateUpdate()
     {
-        if (MaxHealth != healthBar.slider.maxValue)
-        {
-            healthBar.SetMaxHealth(MaxHealth);
-        }
-        if (CurrentHealth != healthBar.slider.value)
-        {
-            healthBar.SetCurrentHealth(CurrentHealth);
-        }
+        //if (MaxHealth != healthBar.slider.maxValue)
+        //{
+        //    healthBar.SetMaxHealth(MaxHealth);
+        //}
+        //if (CurrentHealth != healthBar.slider.value)
+        //{
+        //    healthBar.SetCurrentHealth(CurrentHealth);
+        //}
     }
 
 
 
-    private void Move(float horizontal, float vertical)
+    public void Move(float horizontal, float vertical)
     {
         Vector3 move = new Vector3(0, 0, vertical);
         gameObject.transform.Translate(0, 0, vertical*Speed*Time.deltaTime);
@@ -157,5 +176,11 @@ public class Boat : MonoBehaviour
     public void TakeDamage(float damage)
     {
         CurrentHealth -= damage;
+    }
+
+    public List<Collider> GetBoatColliders()
+    {
+        Collider[] liste = GetComponentsInChildren<Collider>();
+        return new List<Collider>(liste);
     }
 }
