@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 3245858007061784113}
   - component: {fileID: 1354247602125265749}
   - component: {fileID: 3438151921587476701}
-  - component: {fileID: 6614343284635698014}
+  - component: {fileID: -8434244128698880249}
   m_Layer: 0
   m_Name: SideCanons_ProjPrefab
   m_TagString: Untagged
@@ -111,7 +111,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &6614343284635698014
+--- !u!114 &-8434244128698880249
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -120,7 +120,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 5599716305186141299}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b77356275fb3e5a4fbd32f3a45329446, type: 3}
+  m_Script: {fileID: 11500000, guid: 23f7eb0808e96c4489b07fbadca40d6b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lifeSpan: 2
+  lifeSpan: 2.5
+  speed: 10

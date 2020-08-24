@@ -2,12 +2,21 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Player : PlayableEntity
+public class Player : MainPlayer
 {
-    // Start is called before the first frame update
-    protected override void Start()
+    SideCanons sideCanons = new SideCanons();
+    
+    public WeaponSystem GetSelectedWeapon()
     {
-        base.Start();
+        return sideCanons;
+    }
+
+    public void Shoot()
+    {
+        if (boat.GetWeapons().Count > 0)
+        {
+            boat.Shoot(GetSelectedWeapon());
+        }
     }
 
     // Update is called once per frame
@@ -19,22 +28,19 @@ public class Player : PlayableEntity
 
         if (x != 0 || y != 0)
         {
-            Move(x, y);
+           boat.Move(x, y);
         }
 
         //handle ability cast
         if (Input.GetKeyDown("space"))
         {
-            selectedAbility.Cast();
+            //boat.selectedAbility.Cast();
         }
 
-        if (Input.GetKeyDown("f"))
-        {
-            TakeDamage(10);
-        }
+        
         if (Input.GetKeyDown("r"))
         {
-            sideCanons.Shoot();
+            Shoot();
         }
     }
 }

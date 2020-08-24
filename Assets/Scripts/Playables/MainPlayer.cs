@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayableEntity : Boat
+public class MainPlayer : MonoBehaviour
 {
-    
+    public Boat boat;
 }

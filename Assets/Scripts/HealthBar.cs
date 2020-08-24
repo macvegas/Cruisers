@@ -8,6 +8,8 @@ public class HealthBar : MonoBehaviour
     public Slider slider;
     public Text count;
 
+    //TODO: Hide and show Healthbar function
+
     public void SetMaxHealth(float health)
     {
         slider.maxValue = health;

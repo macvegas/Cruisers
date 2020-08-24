@@ -17,12 +17,9 @@ public abstract class WeaponSystem : MonoBehaviour
 
     protected Boat boat;
     protected string weaponName;
-    public float damage;
+    public float damagePerProjectile;
     public float coolDownTime;
     public bool canShoot = true;
-    public float projectileSpeed;
-    public float projectileCount;
-    public float projectileAngle;
 
     protected virtual void Start()
     {
@@ -39,13 +36,14 @@ public abstract class WeaponSystem : MonoBehaviour
     }
     
     // Takes all the shootingpoints of the boat and makes them instanciate the projectile
-    public void Shoot(WeaponOrientation _shootingDirection)
+    public void Fire(WeaponOrientation _shootingDirection)
     {
         List<Transform> shootingPoints = GetShootingPoints(_shootingDirection);
         foreach (Transform shootPoint in shootingPoints)
         {
             GameObject projectile = Instantiate(projectilePrefab, shootPoint.position, shootPoint.rotation);
             projectile.name = projectilePrefab.name;
+            projectile.GetComponent<MainProjectile>().Damage = damagePerProjectile;
             // ignores collision with shooter
             foreach (Collider col in boat.GetBoatColliders())
             {
@@ -53,12 +51,12 @@ public abstract class WeaponSystem : MonoBehaviour
             }
 
             Rigidbody rb = projectile.GetComponent<Rigidbody>();
-            rb.velocity = shootPoint.forward * projectileSpeed;
+            rb.velocity = shootPoint.forward * projectile.GetComponent<MainProjectile>().speed;
             
         }
     }
 
-    public void Shoot()
+    public void Fire()
     {
         WeaponOrientation effectiveDirection = shootingDirection;
         if (shootingDirection == WeaponOrientation.Sides)
@@ -82,7 +80,7 @@ public abstract class WeaponSystem : MonoBehaviour
             }
             
         }
-        Shoot(effectiveDirection);
+        Fire(effectiveDirection);
     }
 
     private List<Transform> GetShootingPoints(WeaponOrientation shootingDirection)
